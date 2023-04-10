@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "72877907898",
+    "project_id": "fayyuzatehasnia",
+    "storage_bucket": "fayyuzatehasnia.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:72877907898:android:07ca4e5a0e54451a728783",
+        "android_client_info": {
+          "package_name": "com.fayyuzatehasnia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "72877907898-drd3inq5nsb5q30j6o86trqhbl3k02n3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVUvbbARVoBclYPaXkCk3rByqocWcuAfk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "72877907898-drd3inq5nsb5q30j6o86trqhbl3k02n3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
