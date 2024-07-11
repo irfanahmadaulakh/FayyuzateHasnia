@@ -10,8 +10,15 @@ export default function () {
     imageBackground: require('@/Assets/Images/imgBackground.png'),
     settings: require('@/Assets/Icons/Settings.png'),
     backIcon: require('@/Assets/Icons/BackIcon.png'),
-
-    // Tab Icons
+    mapIcon: require('@/Assets/Icons/mapIcon.png'),
+    backPageIcon: require('@/Assets/Icons/back.png'),
+    nextIcon: require('@/Assets/Icons/next.png'),
+    resetIcon: require('@/Assets/Icons/reset.png'),
+    page_numberIcon: require('@/Assets/Icons/page_number.png'),
+    homeBookIcon: require('@/Assets/Icons/bookIcon.png'),
+    homeBookImage: require('@/Assets/Images/homeBookImage.jpg'),
+    bell: require('@/Assets/Icons/bell.png'),
+    // Tab Icons   bell.png
     tabBarIcon: {
       home: require('@/Assets/Icons/Home.png'),
       readBook: require('@/Assets/Icons/ReadBook.png'),

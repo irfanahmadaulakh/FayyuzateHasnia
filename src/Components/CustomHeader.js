@@ -7,14 +7,19 @@ import { goBack } from '../Navigators/utils'
 
 // import { Container } from './styles';
 
-const CustomHeader = ({ title }) => {
+const CustomHeader = ({ title, showBell, onDelPress, titleOnly }) => {
   const { Images } = useTheme()
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.iconContainer} onPress={() => goBack()}>
-        <Image source={Images.backIcon} style={styles.icon} />
+        {!titleOnly && <Image source={Images.backIcon} style={styles.icon} />}
       </TouchableOpacity>
       <Text style={styles.title}>{title}</Text>
+      {showBell && (
+        <TouchableOpacity style={styles.iconContainerSec} onPress={onDelPress}>
+          <Image source={Images.resetIcon} style={styles.icon} />
+        </TouchableOpacity>
+      )}
     </View>
   )
 }
@@ -36,6 +41,15 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: WP('1.4'),
     left: WP('12'),
+    width: WP('8'),
+    height: WP('8'),
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  iconContainerSec: {
+    position: 'absolute',
+    top: WP('1.4'),
+    right: WP('12'),
     width: WP('8'),
     height: WP('8'),
     justifyContent: 'center',

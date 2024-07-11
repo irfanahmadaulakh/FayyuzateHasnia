@@ -22,8 +22,9 @@ export const Colors = {
   appPrimary: '#300759',
   appSecondary: '#9D1DF2',
   appTertiary: '#CD77F2',
-  appQuaternary: '#E5B6F2',
+  appQuaternary: '#B7B7DB',
   appLight: '#DAD0E0',
+  black: '#000000',
 }
 
 export const NavigationColors = {

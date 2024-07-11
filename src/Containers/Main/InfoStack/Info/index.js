@@ -13,26 +13,35 @@ import { useTranslation } from 'react-i18next'
 import { navigate, goBack } from '@/Navigators/utils'
 import { WP } from '@/Theme/Responsive'
 import RNExitApp from 'react-native-exit-app'
+import { useState } from 'react'
+import LanguageModal from './Components/LanguageModal'
+import { CustomHeader } from '@/Components'
 
 // import { Container } from './styles';
 
 const Info = () => {
   const { t } = useTranslation()
+  const [modalVisible, setModalVisible] = useState(false)
 
   const exitApp = () => {
-    Alert.alert('', 'Are you sure want to exit the app?', [
+    Alert.alert('', t('areYou'), [
       {
-        text: 'Cancel',
+        text: t('cancel'),
         onPress: () => console.log('Cancel Pressed'),
         style: 'cancel',
       },
-      { text: 'OK', onPress: () => RNExitApp.exitApp() },
+      { text: t('ok'), onPress: () => RNExitApp.exitApp() },
     ])
   }
 
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <CustomHeader title={t('info')} titleOnly={'titleOnly'} />
+        <LanguageModal
+          modalVisible={modalVisible}
+          setModalVisible={setModalVisible}
+        />
         <InfoOptions
           title={t('photoGallery')}
           onPress={() => navigate('PhotoGallery')}
@@ -45,15 +54,19 @@ const Info = () => {
           title={t('mapNavigation')}
           onPress={() => navigate('MapNavigation')}
         />
-        <InfoOptions
+        {/* <InfoOptions
           title={t('privacySecurity')}
           onPress={() => navigate('Privacy')}
-        />
+        /> */}
         <InfoOptions
           title={t('helpSupport')}
           onPress={() => navigate('Support')}
         />
-        <InfoOptions title={t('about')} onPress={() => navigate('About')} />
+        <InfoOptions
+          title={t('changeLanguage')}
+          onPress={() => setModalVisible(true)}
+        />
+        {/* <InfoOptions title={t('about')} onPress={() => navigate('About')} /> */}
         <InfoOptions title={t('exit')} onPress={() => exitApp()} />
       </ScrollView>
     </View>

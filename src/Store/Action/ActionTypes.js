@@ -1,0 +1,4 @@
+export const USER = 'USER'
+export const NOTIFICATIONS = 'NOTIFICATIONS'
+export const DELETE_NOTIFICATIONS = 'DELETE_NOTIFICATIONS'
+export const LANGUAGE = 'LANGUAGE'

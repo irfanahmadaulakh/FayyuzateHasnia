@@ -6,20 +6,62 @@ import Pdf from 'react-native-pdf'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import { CustomLoader } from '../../../Components'
+import { Modal } from 'react-native'
+import GetPageNoModal from './Components/GetPageNoModal'
 import PageStatusBar from './Components/PageStatusBar'
-
-// import { Container } from './styles';
+let pages
 
 const ReadBook = () => {
   const pageRef = useRef(null)
-  const source = require('@/Assets/Book/fayyuzatehasnia.pdf')
+  const [showPageNumberModal, setShowPageNumberModal] = useState(false)
+  const [pagenumber, setPageNumber] = useState()
+  const [currentPagenumber, setCurrentpageNumber] = useState(1)
+  // const source = equire('@/Assets/Book/fayyuzatehasnia.pdf')
+  const source = { uri: 'bundle-assets://pdf/fayyuzatehasnia.pdf' }
+  // const source = require('@/Assets/PhotoGallery/photoGallary.pdf')
+
   useEffect(() => {
     console.log('pagerefff', pageRef.current)
     pageRef?.current?.setPage(1)
   }, [])
+
+  const onNextPress = () => {
+    pageRef?.current?.setPage(pages + 1)
+  }
+  const onBackPress = () => {
+    pageRef?.current?.setPage(pages - 1)
+  }
+  const onResetPagePress = () => {
+    pageRef?.current?.setPage(1)
+  }
+  const onPageNumberPress = () => {
+    setShowPageNumberModal(!showPageNumberModal)
+  }
+  const onCancelPress = () => {
+    setShowPageNumberModal(!showPageNumberModal)
+  }
+  const onSubmitPress = () => {
+    setShowPageNumberModal(!showPageNumberModal)
+    pageRef?.current?.setPage(parseInt(pagenumber))
+  }
+
   return (
     <View style={styles.container}>
-      <PageStatusBar />
+      <GetPageNoModal
+        showPageNumberModal={showPageNumberModal}
+        setShowPageNumberModal={setShowPageNumberModal}
+        number={pagenumber}
+        setNumber={setPageNumber}
+        onSubmitPress={onSubmitPress}
+        onCancelPress={onCancelPress}
+      />
+      <PageStatusBar
+        onNextPress={onNextPress}
+        onBackPress={onBackPress}
+        onResetPagePress={onResetPagePress}
+        onPageNumberPress={onPageNumberPress}
+        pageNo={currentPagenumber}
+      />
       <Pdf
         trustAllCerts={false}
         ref={pageRef}
@@ -31,6 +73,8 @@ const ReadBook = () => {
         }}
         onPageChanged={(page, numberOfPages) => {
           console.log(`Current page: ${page}`)
+          setCurrentpageNumber(page)
+          pages = page
         }}
         onError={error => {
           console.log(error)
@@ -55,6 +99,13 @@ const styles = StyleSheet.create({
     flex: 1,
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height,
+  },
+  goToPageModal: {
+    width: WP('60'),
+    height: WP('90'),
+    borderRadius: 5,
+    marginHorizontal: 10,
+    backgroundColor: Colors.appLight,
   },
 })
 

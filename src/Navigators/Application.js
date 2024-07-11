@@ -8,6 +8,8 @@ import { navigationRef } from './utils'
 import AuthNavigator from './Auth'
 import messaging from '@react-native-firebase/messaging'
 import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { myNotification } from '@/Store/Action'
 
 const Stack = createStackNavigator()
 
@@ -15,12 +17,35 @@ const Stack = createStackNavigator()
 const ApplicationNavigator = () => {
   const { Layout, darkMode, NavigationTheme } = useTheme()
   const { colors } = NavigationTheme
+  const user = useSelector(state => state?.user?.user)
+  const dispatch = useDispatch()
+  const prevNotificaions = useSelector(state => state.user)
+  console.log('preeeea', prevNotificaions)
 
   useEffect(() => {
     requestUserPermission()
     getToken()
     const unsubscribe = messaging().onMessage(async remoteMessage => {
-      Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage))
+      Alert.alert(
+        remoteMessage?.notification?.title,
+        remoteMessage?.notification?.body,
+      )
+
+      const notification = {
+        title: remoteMessage?.notification?.title,
+        body: remoteMessage?.notification?.body,
+      }
+
+      dispatch(myNotification([notification]))
+    })
+    messaging().setBackgroundMessageHandler(async remoteMessage => {
+      console.log('Message handled in the background!', remoteMessage)
+      const notification = {
+        title: remoteMessage?.notification?.title,
+        body: remoteMessage?.notification?.body,
+      }
+
+      dispatch(myNotification([notification]))
     })
 
     return unsubscribe
@@ -47,7 +72,10 @@ const ApplicationNavigator = () => {
       <NavigationContainer theme={NavigationTheme} ref={navigationRef}>
         <StatusBar barStyle={darkMode ? 'light-content' : 'dark-content'} />
         <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="Auth" component={AuthNavigator} />
+          {!user ? (
+            <Stack.Screen name="Auth" component={AuthNavigator} />
+          ) : null}
+          {/* <Stack.Screen name="Auth" component={AuthNavigator} /> */}
           <Stack.Screen
             name="Main"
             component={MainNavigator}
